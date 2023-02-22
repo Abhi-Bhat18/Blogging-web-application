@@ -35,10 +35,17 @@ const Blogs = () => {
   const [loading, setLoading] = useState(false);
   const sideBar = useContext(SidbarContext);
 
+  let __URL__ ;
+  if ( document.domain === "localhost" ) {
+    __URL__ = "http://localhost:1337";
+  } else {
+    __URL__ = "";
+  }
+
   const getPosts = async () => {
     setLoading(true);
     const res = await fetch(
-      "http://localhost:1337/api/v1/posts?limit=8&sort=true",
+      `${__URL__}/api/v1/posts?limit=8&sort=true`,
       {
         method: "GET",
         headers: {

@@ -1,5 +1,5 @@
 import React from "react";
-import matrix from '../../assets/Images/matrix.jpg'
+
 import { Link } from "react-router-dom";
 const PostCard = ({imgUrl,desc,post_id,title}) => {
   return (

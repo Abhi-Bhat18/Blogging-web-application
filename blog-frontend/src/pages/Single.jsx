@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Arvr from "../assets/Images/ARvr.jpg";
-import { useLocation, useNavigate } from "react-router-dom";
+
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PostContext } from "../context/PostContext";
 import { SidbarContext } from "../context/SidbarContext";
 
@@ -21,8 +21,14 @@ const Single = () => {
     localStorage.getItem("access_token") || null
   );
 
+  let __URL__;
+  if (document.domain === "localhost") {
+    __URL__ = "http://localhost:1337";
+  } else {
+    __URL__ = "";
+  }
   const getPost = async () => {
-    const res = await fetch(`http://localhost:1337/api/v1/posts/${postId}`, {
+    const res = await fetch(`${__URL__}/api/v1/posts/${postId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -34,15 +40,12 @@ const Single = () => {
 
   const [similarPosts, setSimilarPosts] = React.useState([]);
   const similarPost = async () => {
-    const res = await fetch(
-      `http://localhost:1337/api/v1/posts?limit=4&sort=true`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${__URL__}/api/v1/posts?limit=4&sort=true`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await res.json();
     setSimilarPosts(data);
   };
@@ -112,15 +115,25 @@ const Single = () => {
         </div>
       </article>
       <div className="">
+        <h4 className="font-space text-4xl text-center m-10 underline">
+          Similar Posts you might like
+        </h4>
         <div className="bg-gray-900 text-white flex flex-col lg:flex-row flex-wrap justify-center items-center space-y-5 lg:space-y-0 p-5">
-          <h4 className="font-space text-4xl">Similar Posts you might like</h4>
           {similarPosts &&
-            similarPosts.map((blog,index) => {
+            similarPosts.map((blog, index) => {
               return (
-                <div key={index} className="bg-black w-full lg:w-[300px] p-2 hover:shadow-2xl lg:m-2">
+                <div
+                  key={index}
+                  className="bg-black w-full lg:w-[300px] p-2 hover:shadow-2xl lg:m-2 space-y-2"
+                >
                   <img src={blog.image_url} alt="" className="rounded-sm" />
                   <h2 className="mt-5 text-2xl font-semibold">{blog.title}</h2>
                   <p className="line_clamp_4">{blog.description}</p>
+                  <div>
+                    <Link to={`/post/${blog.post_id}`} className="bg-[#ffd700] px-3 lg:px-5 py-1 rounded-sm shadow-lg text-[#7d0000] ">
+                      Read More
+                    </Link>
+                  </div>
                 </div>
               );
             })}

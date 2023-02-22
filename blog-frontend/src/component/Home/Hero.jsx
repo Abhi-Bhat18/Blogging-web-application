@@ -1,8 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
+  let __URL__;
+  if(document.domain === "localhost"){
+    __URL__ = "http://localhost:1337"
+  }else{
+    __URL__ = ""
+  }
+
   return (
-    <div className="w-full h-[50vh] lg:h-[80vh] bg-[url('http://localhost:5173/blog_hero.png')] bg-cover flex  justify-start">
+    <div className={`w-full h-[50vh] lg:h-[80vh] bg-cover flex bg-[url('http://localhost:1337/blog_hero.png')] justify-start`}>
         <div className="lg:mt-40 lg:ml-20 lg:w-[30vw] mx-5 space-y-5 flex flex-col justify-center ">
           <h1 className="text-xl lg:text-4xl font-space ">
             Mastering the art of seamless development
@@ -18,9 +26,9 @@ const Hero = () => {
             cutting-edge solutions.
           </p>
           <div className="space-x-1 lg:space-x-5">
-            <button className="bg-[#ffd700] px-3 lg:px-5 py-1 rounded-xl shadow-lg text-[#7d0000]">
+            <Link to={"/blogs"} className="bg-[#ffd700] px-3 lg:px-5 py-1 rounded-xl shadow-lg text-[#7d0000]">
               Start reading
-            </button>
+            </Link>
             <button className="bg-[#ffd700] px-3 lg:px-5 py-1 rounded-xl shadow-lg text-[#7d0000] ">
               Join the community
             </button>

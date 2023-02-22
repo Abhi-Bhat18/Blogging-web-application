@@ -25,7 +25,7 @@ const Footer = () => {
                     />
                   </g>
                 </svg>
-                <p className="ml-3 font-bold text-xl">The North</p>
+                <p className="ml-3 font-bold text-xl">Hardware Techy</p>
               </div>
             </div>
             <div className="w-11/12 xl:w-1/6 lg:w-2/5 mx-auto lg:mx-0 xl:mx-0 pt-3 xl:flex xl:justify-end pl-3 sm:pl-0">

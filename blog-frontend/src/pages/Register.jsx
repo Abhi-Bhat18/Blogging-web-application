@@ -12,9 +12,16 @@ const Register = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  let __URL__ ;
+  if ( document.domain === "localhost" ) {
+    __URL__ = "http://localhost:1337";
+  } else {
+    __URL__ = "";
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(" http://localhost:1337/api/v1/auth/register", {
+    const res = await fetch(`${__URL__}/api/v1/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
