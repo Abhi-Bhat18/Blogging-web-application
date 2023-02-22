@@ -9,7 +9,7 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 dotenv.config();
 
-db.connect()
+
 const app = express();
 const PORT = process.env.PORT || 1337;
 
