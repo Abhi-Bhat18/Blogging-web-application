@@ -5,6 +5,13 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily:{
+      'sans': ['Inter', 'sans-serif'],
+      'serif': ['Merriweather', 'serif'],
+      'mono': ['JetBrains Mono', 'monospace'],
+      'space': ['Space Grotesk', 'sans-serif'],
+      'space2': ['Space Mono', 'monospace'],
+    }
   },
   plugins: [],
 }

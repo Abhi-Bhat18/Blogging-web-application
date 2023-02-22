@@ -1,27 +1,23 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { SidbarContext } from "../context/SidbarContext";
+
+import Hero from "../component/Home/Hero";
+import RecentPosts from "../component/Home/RecentPosts";
 
 const Home = () => {
+  const { showMenu, setShowMenu } = useContext(SidbarContext);
+  const handleMenu = () => {
+    if (showMenu) setShowMenu(false);
+  };
   return (
-    <main className='w-[90%] mx-auto bg-blue-40 flex flex-wrap'>
-      {/* ---------Hero-------- */}
-      <section className='hero flex-[0.75] bg-blue-900'>
-      <div>
-    This is hero section
-      </div>
-      <div>
-        <div>
-          <img src="" alt="" />
-          <p>
-          </p>
-        </div>
-      </div>
-      </section>
-      {/* ---------Sidebar-------- */}
-      <section className='flex flex-[0.25] bg-black'>
-
-      </section>
+    <main
+      onClick={handleMenu}
+      className="mt-2 w-full flex flex-wrap justify-center items-center text-white"
+    >
+      <Hero/>
+      <RecentPosts/>
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -1,11 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
+  const [inputs, setInputs] = useState({
+    user_name: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const [err, setErr] = useState(null);
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch(" http://localhost:1337/api/v1/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputs),
+    });
+    const data = await res.json();
+    if (data.status === "error") setErr(data.message);
+    if (data.status === "success") {
+      alert("Registration Successful");
+      navigate("/login");
+    }
+    setInputs({
+      user_name: "",
+      email: "",
+      password: "",
+    })
+  };
+
   return (
     <div className="w-full h-screen flex justify-center items-center  bg-purple-900">
       <form
         className=" bg-white flex flex-col px-5 py-10
       shadow-2xl rounded-xl"
+        onSubmit={handleSubmit}
       >
         <h1 className="text-center text-purple-800 text-2xl -mt-5 underline underline-offset-2 font-mono">
           Login
@@ -14,28 +48,33 @@ const Register = () => {
           <input
             type="text"
             placeholder="Full Name"
+            name="user_name"
             className="border border-b-blue-900 outline-none rounded-sm placeholder:px-1 h-8"
             required
+            onChange={handleChange}
           />
           <input
             type="email"
             placeholder="Email"
+            name="email"
             className="border border-b-blue-900 outline-none rounded-sm placeholder:px-1 h-8"
             required
+            onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Password"
+            name="password"
             className="border border-b-blue-900 outline-none rounded-sm placeholder:px-1 h-8"
             required
+            onChange={handleChange}
           />
-          <input
-            type="text"
-            placeholder="Contact"
-            className="border border-b-blue-900 outline-none rounded-sm placeholder:px-1 h-8"
-            required
-          />
-          <button type="submit" className="bg-purple-800 text-white py-1 rounded-sm shadow-md hover:bg-purple-900 hover:tracking-wider font-mono">
+
+          {err && <p className="text-red-500">{err}</p>}
+          <button
+            type="submit"
+            className="bg-purple-800 text-white py-1 rounded-sm shadow-md hover:bg-purple-900 hover:tracking-wider font-mono"
+          >
             Submit
           </button>
           <div className="flex justify-center items-center">
